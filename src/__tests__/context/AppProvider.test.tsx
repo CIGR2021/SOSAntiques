@@ -37,7 +37,7 @@ describe('AppProvider', () => {
         wrapper: AppProvider,
       });
 
-      expect(result.current.isHiden).toBe(true);
+      expect(result.current.hideOnUnmount).toBe(true);
       expect(result.current.result).toBe('0');
       expect(result.current.message).toBe('');
     });
@@ -50,12 +50,12 @@ describe('AppProvider', () => {
       act(() => {
         result.current.calculator.ligar();
       });
-      expect(result.current.isHiden).toBe(false);
+      expect(result.current.hideOnUnmount).toBe(false);
 
       act(() => {
         result.current.calculator.desligar();
       });
-      expect(result.current.isHiden).toBe(true);
+      expect(result.current.hideOnUnmount).toBe(true);
       expect(result.current.result).toBe('0');
     });
 
