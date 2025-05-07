@@ -1,46 +1,10 @@
 // Authenticatio Context
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import * as math from 'mathjs';
+import Message from "../utils/enum/Message.enum";
+import { AppProviderProps, AuthenticationType, CalculatorType } from "../types";
 
-type AppProviderProps = {
-    children: ReactNode,
-};
-
-type AuthenticationType = {
-    isAuthenticated: boolean,
-    setIsAuthenticated: Dispatch<SetStateAction<boolean>>,
-    showMainMenu: boolean,
-    setShowMainMenu: Dispatch<SetStateAction<boolean>>,
-    showMenuAside: boolean,
-    setShowMenuAside: Dispatch<SetStateAction<boolean>>
-};
-
-type CalculatorType = {
-    isHiden: boolean,
-    setIsHiden: Dispatch<SetStateAction<boolean>>,
-    result: string,
-    setResult: Dispatch<SetStateAction<string>>,
-    message: string,
-    setMessage: Dispatch<SetStateAction<string>>,
-    expression: string,
-    setExpression: Dispatch<SetStateAction<string>>,
-    constants: {
-        spaceV: string,
-        space: string,
-        sizeButton: string,
-        sizeText: string
-    },
-    calculator: {
-        ligar: () => void,
-        desligar: () => void,
-        add: (str: string | number) => void,
-        remove: () => void,
-        clear: () => void,
-        calc: () => void,
-        clearMessage: () => void
-    }
-};
-
+// Contexts
 export const AuthenticationContext = createContext({} as AuthenticationType);
 export const CalculatorContext = createContext({} as CalculatorType); 
 
@@ -51,50 +15,47 @@ export const AppProvider = ({children}: AppProviderProps) => {
     const [showMenuAside, setShowMenuAside] = useState<boolean>(false);
     
     // State Calculator
-    const [isHiden, setIsHiden] = useState<boolean>(true);
+    const [hideOnUnmount, setHideOnUnmount] = useState<boolean>(true);
     const [result, setResult] = useState<string>('0');
     const [message, setMessage] = useState<string>('');
     const [expression, setExpression] = useState<string>('0');
-    const spaceV = "md" as const
-    const space = "sm" as const
+    const verticalSpace = "md" as const
+    const horizontalSpace = "sm" as const
     const sizeButton = 'md' as const
     const sizeText = 'lg' as const
 
-    const ligar = () => {
-        setIsHiden(false);
+    const ligar = useCallback(() => {
+        setHideOnUnmount(false);
         setExpression('0');
-        setMessage('');
+        setMessage(hideOnUnmount ? Message.called : Message.connected);
         setResult('0');
-    }
+    }, [hideOnUnmount]);
 
-    const desligar = () => {
-        setIsHiden(true);
+    const desligar = useCallback(() => {
+        setHideOnUnmount(true);
         setExpression('0');
+        setMessage(hideOnUnmount ? Message.connected : Message.hangUp);
         setResult('0');
-    }
+    }, [hideOnUnmount]);
     
-    const add = (str: string | number) => {
-        if (isHiden) {
-            return;
-        }
+    const add = useCallback((str: string | number) => {
+        if (hideOnUnmount) return;
 
         const strValue = str.toString();
-        
-        // Se for um operador
+
+        // Se for operador
         if (['+', '-', '*', '/', 'x'].includes(strValue)) {
-            setExpression(prev => {
-                // Se a expressão estiver vazia ou for '0', não adiciona
+            setExpression((prev) => {
                 if (prev === '0') {
+                    setMessage(Message.empty);
                     return prev;
                 }
                 
-                // Se o último caractere for um operador, substitui pelo novo operador
                 const lastChar = prev[prev.length - 1];
                 if (['+', '-', '*', '/', 'x'].includes(lastChar)) {
                     return prev.slice(0, -1) + (strValue === '*' ? 'x' : strValue);
                 }
                 
-                // Adiciona o operador à expressão
                 return prev + (strValue === '*' ? 'x' : strValue);
             });
             return;
@@ -102,117 +63,87 @@ export const AppProvider = ({children}: AppProviderProps) => {
 
         // Se for ponto decimal
         if (strValue === '.') {
-            setExpression(prev => {
-                // Verifica se já existe um ponto no último número
+            setExpression((prev) => {
                 const numbers = prev.split(/[+\-*/x]/);
                 const lastNumber = numbers[numbers.length - 1];
-                if (lastNumber.includes('.')) {
-                    return prev;
-                }
+                if (lastNumber.includes('.')) return prev;
                 return prev === '0' ? '0.' : prev + '.';
             });
             return;
         }
 
         // Se for número
-        setExpression(prev => {
-            // Se a expressão for '0', substitui pelo número
-            if (prev === '0') {
-                return strValue;
-            }
-            
-            // Se for zero duplo
-            if (strValue === '00') {
-                if (prev === '0') {
-                    return '00';
-                }
-            }
-            
-            // Concatena o número
-            return prev + strValue;
-        });
-    }
+        setExpression((prev) => prev === '0' ? strValue : prev + strValue);
+    }, [hideOnUnmount]);
 
-    const remove = () => {
-        if (isHiden) {
+    const remove = useCallback(() => {
+        if (hideOnUnmount) {
+            setMessage(Message.info);
             return;
         }
 
-        setExpression(prev => {
-            // Se tiver apenas um dígito ou for '00', retorna '0'
-            if (prev.length <= 1 || prev === '00') {
-                return '0';
-            }
-            
-            // Remove o último caractere mantendo o resto da expressão
-            const newExpression = prev.slice(0, -1);
-            
-            // Se a expressão ficar vazia, retorna '0'
-            return newExpression === '' ? '0' : newExpression;
+        setExpression((prev) => {
+            if (prev.length <= 1 || prev === '00') return '0';
+            return prev.slice(0, -1) || '0';
         });
-    }
+    }, [hideOnUnmount]);
     
-    const clear = () => {
-        if (isHiden) {
+    const clear = useCallback(() => {
+        if (hideOnUnmount) {
+            setMessage(Message.info);
             return;
         }
         setExpression('0');
         setMessage('');
-    }
+    }, [hideOnUnmount]);
     
-    const calc = () => {
-        if (isHiden) {
+    const calc = useCallback(() => {
+        if (hideOnUnmount) {
+            setMessage(Message.info);
             return;
         }
 
         try {
-            // Verifica se a expressão é válida
             if (expression === '0') {
+                setMessage(Message.empty);
                 return;
             }
 
-            // Verifica se a expressão termina com um operador
             const lastChar = expression[expression.length - 1];
             if (['+', '-', '*', '/', 'x'].includes(lastChar)) {
-                setMessage('Expressão inválida');
+                setMessage(Message.ivalid);
                 return;
             }
 
-            // Verifica se a expressão começa com operador (exceto sinal negativo)
             const firstChar = expression[0];
             if (['+', '*', '/', 'x'].includes(firstChar)) {
-                setMessage('Expressão inválida');
+                setMessage(Message.ivalid);
                 return;
             }
 
-            // Substitui 'x' por '*' para compatibilidade com mathjs
             const sanitizedExpression = expression.replace(/x/g, '*');
-            
-            // Avalia a expressão usando mathjs
             const result = math.evaluate(sanitizedExpression);
-            
-            // Verifica se o resultado é um número válido
+
             if (typeof result !== 'number' || !isFinite(result)) {
-                setMessage('Erro no cálculo');
+                setMessage(Message.errorCalc);
                 return;
             }
 
-            // Formata o resultado para evitar números muito longos
             const formattedResult = Number(result.toFixed(8)).toString();
             setExpression(formattedResult);
             setResult(formattedResult);
         } catch (error) {
-            setMessage('Erro na expressão');
+            setMessage(Message.errorExpression);
         }
-    }
+    }, [expression, hideOnUnmount]);
     
-    const clearMessage = () => {
-        message.length && setMessage('');
-    }
+    const clearMessage = useCallback(() => {
+        if (message.length) setMessage('');
+    }, [message]);
 
     const constants = {
-        spaceV,
-        space,
+        verticalSpace,
+        horizontalSpace,
         sizeButton,
         sizeText
     }
@@ -237,8 +168,8 @@ export const AppProvider = ({children}: AppProviderProps) => {
     }
 
     const calculatorProviderValue = {
-        isHiden,
-        setIsHiden,
+        hideOnUnmount,
+        setHideOnUnmount,
         result,
         setResult,
         message,

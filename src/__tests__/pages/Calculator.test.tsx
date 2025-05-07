@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
-import { View, Text, TouchableOpacity } from 'react-native';
-import Calculator from '../../pages/calculator';
+import Calculator from '../../pages/Calculator';
 import { AppProvider } from '../../context/AppProvider';
 
 // Mock dos componentes UI

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Catalog from './catalog';
+import Catalog from './Catalog';
 import { VStack } from '@/components/ui/vstack';
 import Header from '../components/header';
 

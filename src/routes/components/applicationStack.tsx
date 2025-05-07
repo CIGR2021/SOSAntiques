@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from '@/src/pages/home';
-import Catalog from '@/src/pages/catalog';
-import Calculator from '@/src/pages/calculator';
+import Home from '@/src/pages/Home';
+import Catalog from '@/src/pages/Catalog';
+import Calculator from '@/src/pages/Calculator';
 import { useAuthentication } from '@/src/context/AppProvider';
 
 const Stack = createNativeStackNavigator();
