@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import ResetPassword from '@/src/pages/ResetPassword';
+import ResetPassword from '@/pages/ResetPassword';
 
 describe('Reset Password Page', () => {
   it('deve renderizar corretamente', () => {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, fireEvent, act, waitFor } from '@testing-library/react-native';
 import { Alert } from 'react-native';
-import Welcome from '@/src/pages/Welcome';
 import { NavigationContainer } from '@react-navigation/native';
 import i18next, { i18n as I18nType } from 'i18next';
 import { initReactI18next, I18nextProvider } from 'react-i18next';
-import { resources } from '@/src/__mocks__/translations';
+import { resources } from '@/__mocks__/translations';
+import Welcome from '@/pages/Welcome';
 
 // Mock do Alert
 jest.spyOn(Alert, 'alert');
@@ -19,7 +19,7 @@ i18nTestInstance.use(initReactI18next).init({
 });
 
 // Mock do módulo i18n
-jest.mock('@/src/config/i18n', () => ({
+jest.mock('@/config/i18n', () => ({
   ...jest.requireActual('i18next'),
   language: 'pt',
   changeLanguage: jest.fn(),
@@ -61,7 +61,7 @@ describe('Welcome Page', () => {
   });
 
   it('deve trocar o idioma ao clicar no botão de troca de idioma', () => {
-    const mockedI18n = require('@/src/config/i18n');
+    const mockedI18n = require('@/config/i18n');
     const { getByText } = renderWithNavigation(<Welcome />);
     const changeLanguageButton = getByText('Mudar Idioma');
 
@@ -71,7 +71,7 @@ describe('Welcome Page', () => {
   });
 
   it('deve exibir um alerta em caso de erro na troca de idioma', async () => {
-    const mockedI18n = require('@/src/config/i18n');
+    const mockedI18n = require('@/config/i18n');
     mockedI18n.changeLanguage.mockRejectedValueOnce(new Error('Erro'));
 
     const { getByText } = renderWithNavigation(<Welcome />);
@@ -87,7 +87,7 @@ describe('Welcome Page', () => {
   });
 
   it('deve atualizar o texto da interface ao trocar para o idioma inglês', async () => {
-    const mockedI18n = require('@/src/config/i18n');
+    const mockedI18n = require('@/config/i18n');
     // Simula um atraso assíncrono mais realista na troca de idioma
     mockedI18n.changeLanguage.mockImplementationOnce(
       (lng: string) =>

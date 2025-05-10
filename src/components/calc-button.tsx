@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, ButtonIcon, ButtonText } from '@/components/ui/button';
-import { useCalculator } from '../context/AppProvider';
+import { useCalculator } from '@/context/AppProvider';
 import { IIconComponentType } from '@gluestack-ui/icon/lib/createIcon';
 import { LucideProps } from 'lucide-react-native';
+import { Button, ButtonIcon, ButtonText } from '@gluestack/ui/button';
 
 interface ICalcButton {
   onPress?: () => void;

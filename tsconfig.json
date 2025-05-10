@@ -3,14 +3,24 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "*"
-      ],
-      "tailwind.config": [
-        "./tailwind.config.js"
-      ]
+      "tailwind.config": ["./tailwind.config.js"],
+      "@/*": ["*"],
+      "@gluestack/*": ["../components/*"],
+      "@SOSAntiques/*": ["../*"],
+      "@mocks/*": ["./__mocks__/*"],
+      "@tests/*": ["./__tests__/*"],
+      "@assets/*": ["./assets/*"],
+      "@components/*": ["./components/*"],
+      "@config/*": ["./config/*"],
+      "@context/*": ["./context/*"],
+      "@models/*": ["./models/*"],
+      "@pages/*": ["./pages/*"],
+      "@routes/*": ["./routes/*"],
+      "@styles/*": ["./styles/*"],
+      "@types/*": ["./types/*"],
+      "@utils/*": ["./utils/*"]
     },
     "resolveJsonModule": true,
-    "esModuleInterop": true,
+    "esModuleInterop": true
   }
 }

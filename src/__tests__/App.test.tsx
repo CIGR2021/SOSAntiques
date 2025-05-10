@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import App from '@/App';
+import App from '@SOSAntiques/App';
 
 // Mock do arquivo CSS
 jest.mock('./global.css', () => ({}));

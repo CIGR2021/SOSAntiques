@@ -1,32 +1,40 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AuthenticationStack from "./components/authenticationStack";
-import ApplicationStack from "./components/applicationStack";
-import { useAuthentication } from "../context/AppProvider";
+import { useAuthentication } from '@/context/AppProvider';
+import AuthenticationStack from './components/authenticationStack';
+import ApplicationStack from './components/applicationStack';
 
 const Stack = createNativeStackNavigator();
 
 const options = {
-	headerShown: false,
-	unmountInactiveRoutes: true,
+  headerShown: false,
+  unmountInactiveRoutes: true,
 };
 
 const Routes = () => {
-    const AUTH = useAuthentication();
-    
-    useEffect(() => {
-        AUTH.setIsAuthenticated(AUTH.isAuthenticated)
-    },[AUTH.isAuthenticated])
+  const { isAuthenticated, setIsAuthenticated } = useAuthentication();
 
-    return (
-        <Stack.Navigator>
-            {!AUTH.isAuthenticated ? (
-                <Stack.Screen name="AuthenticationStack" component={AuthenticationStack} options={options} />
-            ) : (
-                <Stack.Screen name="ApplicationStack" component={ApplicationStack} options={options} />
-            )}
-        </Stack.Navigator>
-    )
-}
+  useEffect(() => {
+    setIsAuthenticated(isAuthenticated);
+  }, [isAuthenticated, setIsAuthenticated]);
+
+  return (
+    <Stack.Navigator>
+      {!isAuthenticated ? (
+        <Stack.Screen
+          name="AuthenticationStack"
+          component={AuthenticationStack}
+          options={options}
+        />
+      ) : (
+        <Stack.Screen
+          name="ApplicationStack"
+          component={ApplicationStack}
+          options={options}
+        />
+      )}
+    </Stack.Navigator>
+  );
+};
 
 export default Routes;

@@ -3,7 +3,7 @@ import {
   AppProvider,
   useAuthentication,
   useCalculator,
-} from '../../context/AppProvider';
+} from '@/context/AppProvider';
 
 describe('AppProvider', () => {
   describe('Authentication Context', () => {
