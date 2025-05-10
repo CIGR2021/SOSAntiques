@@ -1,9 +1,8 @@
-import {Card} from '@/components/ui/card';
-import {Center} from '@/components/ui/center';
-import {Divider} from '@/components/ui/divider';
-import {Heading} from '@/components/ui/heading';
-import {Image} from '@/components/ui/image';
-import {VStack} from '@/components/ui/vstack';
+import { Card } from '@/components/ui/card';
+import { Center } from '@/components/ui/center';
+import { Divider } from '@/components/ui/divider';
+import { Heading } from '@/components/ui/heading';
+import { VStack } from '@/components/ui/vstack';
 import React from 'react';
 import Field from '../components/field';
 import {
@@ -13,9 +12,9 @@ import {
   PhoneIcon,
   CalendarDaysIcon,
 } from '@/components/ui/icon';
-import {Button, ButtonGroup, ButtonText} from '@/components/ui/button';
-import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { Button, ButtonGroup, ButtonText } from '@/components/ui/button';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -25,12 +24,15 @@ import {
   Text,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {Badge} from '@/components/ui/badge';
-
-const logo = '../assets/images/logo.jpeg';
+import { Badge } from '@/components/ui/badge';
+import FastImage from 'react-native-fast-image';
+import { getDynamicStyles } from '../styles';
+import images from '../config/const';
 
 const Register = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  const styles = getDynamicStyles();
+
   return (
     <ScrollView>
       <Center>
@@ -39,16 +41,17 @@ const Register = () => {
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
               <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                enabled>
+                enabled
+              >
                 <VStack space="xl" className="mt-8">
                   <Center>
-                    <Image
-                      className="rounded-full mb-5"
-                      size="2xl"
-                      source={require(logo)}
-                      alt="Logo SOSAntiques"
+                    <FastImage
+                      style={styles.imageLogo}
+                      source={images.logo}
+                      resizeMode={FastImage.resizeMode.contain}
+                      testID="logo-image"
                     />
-                    <Heading className='text-center' size="2xl">
+                    <Heading className="text-center" size="2xl">
                       Preencher os campos com seus dados
                     </Heading>
                   </Center>
@@ -112,7 +115,8 @@ const Register = () => {
                         className="rounded-full w-auto min-h-[50px] min-w-[60px]"
                         variant="solid"
                         size="md"
-                        onPress={() => navigation.navigate('LoginScreen')}>
+                        onPress={() => navigation.navigate('LoginScreen')}
+                      >
                         <ButtonText size="xl">Cadastrar</ButtonText>
                       </Button>
                     </ButtonGroup>
