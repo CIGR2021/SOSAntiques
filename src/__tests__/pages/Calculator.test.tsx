@@ -1,36 +1,36 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
-import Calculator from '../../pages/Calculator';
-import { AppProvider } from '../../context/AppProvider';
+import { AppProvider } from '@/context/AppProvider';
+import Calculator from '@/pages/Calculator';
 
 // Mock dos componentes UI
-jest.mock('@/components/ui/box', () => ({
+jest.mock('@gluestack/ui/box', () => ({
   Box: 'View',
 }));
 
-jest.mock('@/components/ui/button', () => ({
+jest.mock('@gluestack/ui/button', () => ({
   Button: 'TouchableOpacity',
   ButtonIcon: 'View',
   ButtonText: 'Text',
 }));
 
-jest.mock('@/components/ui/card', () => ({
+jest.mock('@gluestack/ui/card', () => ({
   Card: 'View',
 }));
 
-jest.mock('@/components/ui/center', () => ({
+jest.mock('@gluestack/ui/center', () => ({
   Center: 'View',
 }));
 
-jest.mock('@/components/ui/heading', () => ({
+jest.mock('@gluestack/ui/heading', () => ({
   Heading: 'Text',
 }));
 
-jest.mock('@/components/ui/hstack', () => ({
+jest.mock('@gluestack/ui/hstack', () => ({
   HStack: 'View',
 }));
 
-jest.mock('@/components/ui/vstack', () => ({
+jest.mock('@gluestack/ui/vstack', () => ({
   VStack: 'View',
 }));
 

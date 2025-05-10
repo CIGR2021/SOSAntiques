@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import Catalog from '@/src/pages/Catalog';
+import Catalog from '@/pages/Catalog';
 
 // Envolvendo o componente Catalog com NavigationContainer
 const renderWithNavigation = (component: React.ReactElement) => {

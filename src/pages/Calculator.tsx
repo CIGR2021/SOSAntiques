@@ -1,9 +1,9 @@
-import { Box } from '@/components/ui/box';
-import { Card } from '@/components/ui/card';
-import { Center } from '@/components/ui/center';
-import { Heading } from '@/components/ui/heading';
-import { HStack } from '@/components/ui/hstack';
-import { VStack } from '@/components/ui/vstack';
+import { Box } from '@gluestack/ui/box';
+import { Card } from '@gluestack/ui/card';
+import { Center } from '@gluestack/ui/center';
+import { Heading } from '@gluestack/ui/heading';
+import { HStack } from '@gluestack/ui/hstack';
+import { VStack } from '@gluestack/ui/vstack';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { useCalculator } from '../context/AppProvider';
 import {
@@ -11,11 +11,11 @@ import {
   styleContainer,
   styleMessage,
   styleTitle,
-} from '@/src/styles';
-import CalcButton from '../components/calc-button';
-import { Text } from '@/components/ui/text';
-import { getButtonLayout } from '../config/buttonConfig';
-import Message from '../utils/enum/Message.enum';
+} from '@/styles';
+import CalcButton from '@/components/calc-button';
+import { Text } from '@gluestack/ui/text';
+import { getButtonLayout } from '@/config/buttonConfig';
+import Message from '@/utils/enum/Message.enum';
 
 const Calculator = () => {
   const {

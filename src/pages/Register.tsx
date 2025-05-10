@@ -1,18 +1,18 @@
-import { Card } from '@/components/ui/card';
-import { Center } from '@/components/ui/center';
-import { Divider } from '@/components/ui/divider';
-import { Heading } from '@/components/ui/heading';
-import { VStack } from '@/components/ui/vstack';
+import { Card } from '@gluestack/ui/card';
+import { Center } from '@gluestack/ui/center';
+import { Divider } from '@gluestack/ui/divider';
+import { Heading } from '@gluestack/ui/heading';
+import { VStack } from '@gluestack/ui/vstack';
 import React from 'react';
-import Field from '../components/field';
+import Field from '@/components/field';
 import {
   LockIcon,
   MailIcon,
   EditIcon,
   PhoneIcon,
   CalendarDaysIcon,
-} from '@/components/ui/icon';
-import { Button, ButtonGroup, ButtonText } from '@/components/ui/button';
+} from '@gluestack/ui/icon';
+import { Button, ButtonGroup, ButtonText } from '@gluestack/ui/button';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
@@ -24,10 +24,10 @@ import {
   Text,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { Badge } from '@/components/ui/badge';
+import { Badge } from '@gluestack/ui/badge';
 import FastImage from 'react-native-fast-image';
-import { getDynamicStyles } from '../styles';
-import images from '../config/const';
+import { getDynamicStyles } from '@/styles';
+import images from '@/config/const';
 
 const Register = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();

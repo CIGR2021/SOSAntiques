@@ -15,7 +15,7 @@ jest.mock('react-native-fast-image', () => {
   return MockFastImage;
 });
 
-jest.mock('@/src/config/i18n', () => ({
+jest.mock('@/config/i18n', () => ({
   language: 'pt',
   changeLanguage: jest.fn(), // Mock da função
   t: jest.fn((key) => key),

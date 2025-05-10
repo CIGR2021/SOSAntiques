@@ -1,8 +1,8 @@
 // Authenticatio Context
 import { createContext, useCallback, useContext, useState } from 'react';
 import * as math from 'mathjs';
-import Message from '../utils/enum/Message.enum';
-import { AppProviderProps, AuthenticationType, CalculatorType } from '../types';
+import Message from '@/utils/enum/Message.enum';
+import { AppProviderProps, AuthenticationType, CalculatorType } from '@/types';
 
 // Contexts
 export const AuthenticationContext = createContext({} as AuthenticationType);
@@ -34,7 +34,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const desligar = useCallback(() => {
     setHideOnUnmount(true);
     setExpression('0');
-    setMessage(hideOnUnmount ? Message.connected : Message.hangUp);
+    setMessage(hideOnUnmount ? Message.alreadyOff : Message.hangUp);
     setResult('0');
   }, [hideOnUnmount]);
 
