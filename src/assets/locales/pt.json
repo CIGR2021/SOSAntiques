@@ -1,0 +1,14 @@
+{
+    "welcome": {
+        "title": "Bem-vindo ao SOS Antiques!",
+        "subtitle": "Seu aplicativo confiável para coleções de antiguidades.",
+        "login": "Entrar",
+        "register": "Registrar",
+        "changeLanguage": "Pt",
+        "logoDescription": "Logo do SOS Antiques",
+        "bannerDescription": "Banner do SOS Antiques",
+        "errorTitle": "Erro",
+        "errorMessage": "Não foi possível alterar o idioma. Tente novamente.",
+        "ok": "OK"
+    }
+}

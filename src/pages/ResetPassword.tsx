@@ -1,7 +1,6 @@
-import {Card} from '@/components/ui/card';
-import {Center} from '@/components/ui/center';
-import {Image} from '@/components/ui/image';
-import {VStack} from '@/components/ui/vstack';
+import { Card } from '@/components/ui/card';
+import { Center } from '@/components/ui/center';
+import { VStack } from '@/components/ui/vstack';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -10,18 +9,20 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {Heading} from '@/components/ui/heading';
-import {Divider} from '@/components/ui/divider';
+import { Heading } from '@/components/ui/heading';
+import { Divider } from '@/components/ui/divider';
 import Field from '../components/field';
-import {MailIcon} from '@/components/ui/icon';
-import {Button, ButtonGroup, ButtonText} from '@/components/ui/button';
-import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
-const logo = '../assets/images/logo.jpeg';
+import { MailIcon } from '@/components/ui/icon';
+import { Button, ButtonGroup, ButtonText } from '@/components/ui/button';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import FastImage from 'react-native-fast-image';
+import { getDynamicStyles } from '../styles';
+import images from '../config/const';
 
 const ResetPassword = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  const styles = getDynamicStyles();
 
   return (
     <ScrollView>
@@ -31,14 +32,15 @@ const ResetPassword = () => {
             <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
               <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                enabled>
+                enabled
+              >
                 <VStack space="xl" className="mt-8">
                   <Center>
-                    <Image
-                      className="rounded-full mb-5"
-                      size="2xl"
-                      source={require(logo)}
-                      alt="Logo SOSAntiques"
+                    <FastImage
+                      style={styles.imageLogo}
+                      source={images.logo}
+                      resizeMode={FastImage.resizeMode.contain}
+                      testID="logo-image"
                     />
                     <Heading size="2xl">Esqueceu sua senha?</Heading>
                   </Center>
@@ -57,7 +59,8 @@ const ResetPassword = () => {
                         className="rounded-full w-auto min-h-[50px] min-w-[60px]"
                         variant="solid"
                         size="md"
-                        onPress={() => navigation.navigate('LoginScreen')}>
+                        onPress={() => navigation.navigate('LoginScreen')}
+                      >
                         <ButtonText size="xl">Receber instruções</ButtonText>
                       </Button>
                     </ButtonGroup>

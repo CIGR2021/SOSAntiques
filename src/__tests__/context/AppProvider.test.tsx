@@ -1,6 +1,9 @@
-import React from 'react';
 import { renderHook, act } from '@testing-library/react-native';
-import { AppProvider, useAuthentication, useCalculator } from '../../context/AppProvider';
+import {
+  AppProvider,
+  useAuthentication,
+  useCalculator,
+} from '../../context/AppProvider';
 
 describe('AppProvider', () => {
   describe('Authentication Context', () => {
@@ -65,20 +68,28 @@ describe('AppProvider', () => {
       });
 
       act(() => {
-        result.current.setResult('0');
+        result.current.calculator.ligar(); // Garante que a calculadora esteja ligada antes de adicionar valores
+      });
+      console.log('Após ligar a calculadora:', result.current.expression);
+
+      console.log('Estado inicial da expressão:', result.current.expression);
+      act(() => {
         result.current.calculator.add('1');
       });
-      expect(result.current.result).toBe('1');
+      console.log('Após adicionar 1:', result.current.expression);
+      expect(result.current.expression).toBe('1');
 
       act(() => {
         result.current.calculator.add('2');
       });
-      expect(result.current.result).toBe('12');
+      console.log('Após adicionar 2:', result.current.expression);
+      expect(result.current.expression).toBe('12');
 
       act(() => {
         result.current.calculator.add('+');
       });
-      expect(result.current.result).toBe('12+');
+      console.log('Após adicionar +:', result.current.expression);
+      expect(result.current.expression).toBe('12+');
     });
 
     it('deve remover último dígito corretamente', () => {
@@ -86,24 +97,22 @@ describe('AppProvider', () => {
         wrapper: AppProvider,
       });
 
-      // Primeiro, adiciona um número
       act(() => {
-        result.current.setResult('123');
+        result.current.calculator.ligar(); // Garante que a calculadora esteja ligada antes de remover valores
+        result.current.setResult('123'); // Configura o estado inicial corretamente
       });
+      console.log('Estado inicial antes de remover:', result.current.result);
 
-      // Remove um dígito
       act(() => {
         result.current.calculator.remove();
       });
       expect(result.current.result).toBe('12');
 
-      // Remove outro dígito
       act(() => {
         result.current.calculator.remove();
       });
       expect(result.current.result).toBe('1');
 
-      // Remove o último dígito
       act(() => {
         result.current.calculator.remove();
       });
@@ -116,9 +125,16 @@ describe('AppProvider', () => {
       });
 
       act(() => {
-        result.current.setResult('123');
-        result.current.setMessage('Teste');
+        result.current.calculator.ligar(); // Garante que a calculadora esteja ligada antes de limpar
+        result.current.setResult('123'); // Configura o estado inicial corretamente
+        result.current.setMessage('Teste'); // Configura a mensagem inicial
       });
+      console.log(
+        'Estado inicial antes de limpar: result=',
+        result.current.result,
+        ', message=',
+        result.current.message,
+      );
 
       act(() => {
         result.current.calculator.clear();
@@ -135,11 +151,11 @@ describe('AppProvider', () => {
       });
 
       expect(result.current.constants).toEqual({
-        spaceV: 'md',
-        space: 'sm',
+        verticalSpace: 'md',
+        horizontalSpace: 'sm',
         sizeButton: 'md',
-        sizeText: 'lg'
+        sizeText: 'lg',
       });
     });
   });
-}); 
+});

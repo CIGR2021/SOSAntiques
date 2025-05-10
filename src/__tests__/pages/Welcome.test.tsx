@@ -1,82 +1,122 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { render, fireEvent, act, waitFor } from '@testing-library/react-native';
+import { Alert } from 'react-native';
 import Welcome from '@/src/pages/Welcome';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import i18next, { i18n as I18nType } from 'i18next';
+import { initReactI18next, I18nextProvider } from 'react-i18next';
+import { resources } from '@/src/__mocks__/translations';
 
-// Mock das imagens
-jest.mock('@/assets/images/bg.jpg', () => 'mock-bg-image');
-jest.mock('@/assets/images/logo.jpeg', () => 'mock-logo-image');
+// Mock do Alert
+jest.spyOn(Alert, 'alert');
 
-// Mock do useNavigation
-const mockNavigate = jest.fn();
-jest.mock('@react-navigation/native', () => {
-  const actualNav = jest.requireActual('@react-navigation/native');
-  return {
-    ...actualNav,
-    useNavigation: () => ({
-      navigate: mockNavigate,
-    }),
-  };
+// Configuração básica do i18next para testes
+const i18nTestInstance: I18nType = i18next.createInstance();
+i18nTestInstance.use(initReactI18next).init({
+  lng: 'pt',
+  fallbackLng: 'pt',
+  resources,
 });
 
-const Stack = createNativeStackNavigator();
+// Mock do módulo i18n
+jest.mock('@/src/config/i18n', () => ({
+  ...jest.requireActual('i18next'),
+  language: 'pt',
+  changeLanguage: jest.fn(),
+}));
 
-const renderWithNavigation = (component: React.ReactElement) => {
-  return render(
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Welcome" component={() => component} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
-
-describe('Welcome Screen', () => {
+describe('Welcome Page', () => {
   beforeEach(() => {
-    mockNavigate.mockClear();
+    jest.clearAllMocks();
   });
 
-  it('deve renderizar a tela Welcome corretamente', () => {
+  const renderWithNavigation = (component: React.ReactNode) => {
+    return render(
+      <I18nextProvider i18n={i18nTestInstance}>
+        <NavigationContainer>{component}</NavigationContainer>
+      </I18nextProvider>,
+    );
+  };
+
+  it('deve renderizar os componentes principais', () => {
     const { getByTestId, getByText } = renderWithNavigation(<Welcome />);
-    
-    // Verifica se os elementos principais estão presentes
-    expect(getByTestId('logo-image')).toBeTruthy();
-    expect(getByText('Bem Vindo(a) ao SOS Antiques')).toBeTruthy();
-    expect(getByText('App de Produtos Víntages')).toBeTruthy();
+
+    expect(getByTestId('welcome-banner')).toBeTruthy();
+    expect(getByTestId('welcome-logo')).toBeTruthy();
+    expect(getByText('Bem-vindo')).toBeTruthy();
+    expect(getByText('Subtítulo')).toBeTruthy();
     expect(getByText('Entrar')).toBeTruthy();
     expect(getByText('Registrar')).toBeTruthy();
+    expect(getByText('Mudar Idioma')).toBeTruthy();
   });
 
-  it('deve navegar para a tela de Login ao pressionar o botão Entrar', () => {
+  it('deve exibir os atributos de acessibilidade corretamente', () => {
+    const { getByLabelText } = renderWithNavigation(<Welcome />);
+
+    expect(getByLabelText('Banner do SOS Antiques')).toBeTruthy();
+    expect(getByLabelText('Logo do SOS Antiques')).toBeTruthy();
+    expect(getByLabelText('Bem-vindo')).toBeTruthy();
+    expect(getByLabelText('Subtítulo')).toBeTruthy();
+    expect(getByLabelText('Mudar Idioma')).toBeTruthy();
+  });
+
+  it('deve trocar o idioma ao clicar no botão de troca de idioma', () => {
+    const mockedI18n = require('@/src/config/i18n');
     const { getByText } = renderWithNavigation(<Welcome />);
-    
-    fireEvent.press(getByText('Entrar'));
-    expect(mockNavigate).toHaveBeenCalledWith('LoginScreen');
+    const changeLanguageButton = getByText('Mudar Idioma');
+
+    fireEvent.press(changeLanguageButton);
+
+    expect(mockedI18n.changeLanguage).toHaveBeenCalledWith('en');
   });
 
-  it('deve navegar para a tela de Registro ao pressionar o botão Registrar', () => {
+  it('deve exibir um alerta em caso de erro na troca de idioma', async () => {
+    const mockedI18n = require('@/src/config/i18n');
+    mockedI18n.changeLanguage.mockRejectedValueOnce(new Error('Erro'));
+
     const { getByText } = renderWithNavigation(<Welcome />);
-    
-    fireEvent.press(getByText('Registrar'));
-    expect(mockNavigate).toHaveBeenCalledWith('RegisterScreen');
+    const changeLanguageButton = getByText('Mudar Idioma');
+
+    await act(async () => {
+      fireEvent.press(changeLanguageButton);
+    });
+
+    expect(Alert.alert).toHaveBeenCalledWith('Erro', 'Erro ao mudar idioma', [
+      { text: 'OK' },
+    ]);
   });
 
-  it('deve ter o layout correto com SafeAreaView e ImageBackground', () => {
-    const { getByTestId } = renderWithNavigation(<Welcome />);
-    
-    // Verifica se o container principal está presente
-    expect(getByTestId('app-container')).toBeTruthy();
-  });
+  it('deve atualizar o texto da interface ao trocar para o idioma inglês', async () => {
+    const mockedI18n = require('@/src/config/i18n');
+    // Simula um atraso assíncrono mais realista na troca de idioma
+    mockedI18n.changeLanguage.mockImplementationOnce(
+      (lng: string) =>
+        new Promise(
+          (resolve) =>
+            setTimeout(() => {
+              i18nTestInstance.changeLanguage(lng).then(resolve);
+            }, 50), // atraso leve para simular latência real
+        ),
+    );
 
-  it('deve ter os botões com o estilo correto', () => {
-    const { getByText } = renderWithNavigation(<Welcome />);
-    
-    const entrarButton = getByText('Entrar');
-    const registrarButton = getByText('Registrar');
-    
-    // Verifica se os botões têm as classes corretas
-    expect(entrarButton.props.className).toContain('rounded-full');
-    expect(registrarButton.props.className).toContain('rounded-full');
+    const { getByText, queryByText } = renderWithNavigation(<Welcome />);
+    const changeLanguageButton = getByText('Mudar Idioma');
+
+    // Verifica o texto inicial em português
+    expect(getByText('Bem-vindo')).toBeTruthy();
+    expect(getByText('Subtítulo')).toBeTruthy();
+
+    // Simula a troca para o idioma inglês
+    await act(async () => {
+      fireEvent.press(changeLanguageButton);
+    });
+
+    // Verifica se o texto foi atualizado para o inglês
+    await waitFor(() => {
+      expect(queryByText('Bem-vindo')).toBeNull();
+      expect(queryByText('Subtítulo')).toBeNull();
+      expect(getByText('Welcome')).toBeTruthy();
+      expect(getByText('Subtitle')).toBeTruthy();
+    });
   });
 });

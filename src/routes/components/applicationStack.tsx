@@ -1,37 +1,41 @@
-import React, { useEffect } from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from '@/src/pages/Home';
-import Catalog from '@/src/pages/Catalog';
-import Calculator from '@/src/pages/Calculator';
+import React, { lazy, Suspense, useEffect } from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuthentication } from '@/src/context/AppProvider';
 
 const Stack = createNativeStackNavigator();
 
+// Lazy load pages
+const Home = lazy(() => import('@/src/pages/Home'));
+const Catalog = lazy(() => import('@/src/pages/Catalog'));
+const Calculator = lazy(() => import('@/src/pages/Calculator'));
+
 const ApplicationStack = () => {
-  const CONTEXT_STATE = useAuthentication();
+  const { isAuthenticated, setIsAuthenticated } = useAuthentication();
 
   useEffect(() => {
-    CONTEXT_STATE.setIsAuthenticated(true);
-  }, [CONTEXT_STATE.isAuthenticated])
+    setIsAuthenticated(true);
+  }, [isAuthenticated, setIsAuthenticated]);
 
   return (
-    <Stack.Navigator initialRouteName="HomeScreen">
-      <Stack.Screen
-        name="HomeScreen"
-        component={Home}
-        options={{title: 'Catálogo'}}
-      />
-      <Stack.Screen
-        name="NewsScreen"
-        component={Catalog}
-        options={{title: 'Novidades'}}
-      />
-      <Stack.Screen
-        name="CalculatorScreen"
-        component={Calculator}
-        options={{title: 'Calculator'}}
-      />
-    </Stack.Navigator>
+    <Suspense fallback={<></>}>
+      <Stack.Navigator initialRouteName="HomeScreen">
+        <Stack.Screen
+          name="HomeScreen"
+          component={Home}
+          options={{ title: 'Catálogo' }}
+        />
+        <Stack.Screen
+          name="NewsScreen"
+          component={Catalog}
+          options={{ title: 'Novidades' }}
+        />
+        <Stack.Screen
+          name="CalculatorScreen"
+          component={Calculator}
+          options={{ title: 'Calculator' }}
+        />
+      </Stack.Navigator>
+    </Suspense>
   );
 };
 

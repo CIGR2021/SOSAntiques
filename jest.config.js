@@ -2,15 +2,16 @@ module.exports = {
   preset: 'react-native',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|@react-navigation|@gluestack-ui|nativewind|@legendapp/motion|react-native-css-interop)/)',
+    'node_modules/(?!(react-native|@react-native|@react-navigation|@gluestack-ui|nativewind|@legendapp/motion|@expo/html-elements|react-native-safe-area-context|react-native-fast-image)/)',
   ],
+  setupFiles: ['<rootDir>/src/__mocks__/fileMock.js', '<rootDir>/src/__mocks__/react-native-fast-image.js'],
   setupFilesAfterEnv: ['@testing-library/jest-native/extend-expect'],
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/__mocks__/fileMock.js',
-    '\\.(css|less|scss|sass)$': '<rootDir>/__mocks__/styleMock.js',
-    '^@/(.*)$': '<rootDir>/$1'
+      '<rootDir>/src/__mocks__/fileMock.js',
+    '\\.(css|less|scss|sass)$': '<rootDir>/src/__mocks__/styleMock.js',
+    '^@/(.*)$': '<rootDir>/$1',
   },
   testEnvironment: 'node',
   transform: {
@@ -32,4 +33,6 @@ module.exports = {
       statements: 70,
     },
   },
-}; 
+  verbose: true, // Exibe logs detalhados durante a execução dos testes
+  moduleDirectories: ['node_modules', '<rootDir>/src/__mocks__'],
+};

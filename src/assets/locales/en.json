@@ -1,0 +1,14 @@
+{
+    "welcome": {
+        "title": "Welcome to SOS Antiques!",
+        "subtitle": "Your trusted app for antique collections.",
+        "login": "Login",
+        "register": "Register",
+        "changeLanguage": "En",
+        "logoDescription": "SOS Antiques logo",
+        "bannerDescription": "SOS Antiques banner",
+        "errorTitle": "Error",
+        "errorMessage": "Could not change the language. Please try again.",
+        "ok": "OK"
+    }
+}
