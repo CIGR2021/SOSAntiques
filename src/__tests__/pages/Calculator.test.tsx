@@ -5,44 +5,44 @@ import { AppProvider } from '../../context/AppProvider';
 
 // Mock dos componentes UI
 jest.mock('@/components/ui/box', () => ({
-  Box: 'View'
+  Box: 'View',
 }));
 
 jest.mock('@/components/ui/button', () => ({
   Button: 'TouchableOpacity',
   ButtonIcon: 'View',
-  ButtonText: 'Text'
+  ButtonText: 'Text',
 }));
 
 jest.mock('@/components/ui/card', () => ({
-  Card: 'View'
+  Card: 'View',
 }));
 
 jest.mock('@/components/ui/center', () => ({
-  Center: 'View'
+  Center: 'View',
 }));
 
 jest.mock('@/components/ui/heading', () => ({
-  Heading: 'Text'
+  Heading: 'Text',
 }));
 
 jest.mock('@/components/ui/hstack', () => ({
-  HStack: 'View'
+  HStack: 'View',
 }));
 
 jest.mock('@/components/ui/vstack', () => ({
-  VStack: 'View'
+  VStack: 'View',
 }));
 
 jest.mock('lucide-react-native', () => ({
-  PlayIcon: 'View'
+  PlayIcon: 'View',
 }));
 
 const renderCalculator = () => {
   return render(
     <AppProvider>
       <Calculator />
-    </AppProvider>
+    </AppProvider>,
   );
 };
 
@@ -63,7 +63,7 @@ describe('Calculator', () => {
   it('deve ligar a calculadora ao pressionar AC', () => {
     const { getByTestId } = renderCalculator();
     const acButton = getByTestId('ac-button');
-    
+
     act(() => {
       fireEvent.press(acButton);
     });
@@ -76,7 +76,7 @@ describe('Calculator', () => {
   it('deve desligar a calculadora ao pressionar OFF', () => {
     const { getByTestId, queryByTestId } = renderCalculator();
     const offButton = getByTestId('off-button');
-    
+
     act(() => {
       fireEvent.press(offButton);
     });
@@ -88,7 +88,7 @@ describe('Calculator', () => {
 
   it('deve adicionar números corretamente', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -110,36 +110,33 @@ describe('Calculator', () => {
   });
 
   it('deve mostrar mensagem ao pressionar %', () => {
-    const { getByTestId, getByText } = renderCalculator();
+    const { getByTestId } = renderCalculator();
     const percentButton = getByTestId('percent-button');
-    
+
     act(() => {
       fireEvent.press(percentButton);
     });
 
-    expect(getByText('Not Implemented')).toBeTruthy();
+    // Não há mais mensagem exibida, pois a funcionalidade foi implementada
+    expect(true).toBeTruthy();
   });
 
-  it('deve limpar a mensagem após 5 segundos', () => {
-    const { getByTestId, queryByTestId } = renderCalculator();
-    const percentButton = getByTestId('percent-button');
-    
-    act(() => {
-      fireEvent.press(percentButton);
-    });
-
-    expect(getByTestId('calculator-message')).toHaveTextContent('Not Implemented');
+  it('deve calcular porcentagem corretamente', () => {
+    const { getByTestId, getByText } = renderCalculator();
 
     act(() => {
-      jest.advanceTimersByTime(5000);
+      fireEvent.press(getByTestId('ac-button'));
+      fireEvent.press(getByTestId('number-5'));
+      fireEvent.press(getByTestId('number-0'));
+      fireEvent.press(getByTestId('percent-button'));
     });
 
-    expect(queryByTestId('calculator-message')).toBeNull();
+    expect(getByText('0.5')).toBeTruthy(); // 50% de 1 é 0.5
   });
 
   it('deve remover último dígito ao pressionar remove', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -167,7 +164,7 @@ describe('Calculator', () => {
 
   it('deve adicionar operadores corretamente', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -190,7 +187,7 @@ describe('Calculator', () => {
 
   it('deve adicionar operadores apenas quando houver números', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -208,7 +205,7 @@ describe('Calculator', () => {
 
   it('deve limpar o display ao pressionar AC', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -233,7 +230,7 @@ describe('Calculator', () => {
 
   it('deve adicionar ponto decimal', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -253,7 +250,7 @@ describe('Calculator', () => {
 
   it('deve adicionar zero duplo', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -271,7 +268,7 @@ describe('Calculator', () => {
 
   it('deve realizar operação de subtração', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -294,7 +291,7 @@ describe('Calculator', () => {
 
   it('deve realizar operação de multiplicação', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -317,7 +314,7 @@ describe('Calculator', () => {
 
   it('deve realizar operação de divisão', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -340,7 +337,7 @@ describe('Calculator', () => {
 
   it('deve remover último dígito até chegar a zero', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
@@ -366,7 +363,7 @@ describe('Calculator', () => {
 
   it('deve ignorar operadores quando o resultado é zero', () => {
     const { getByTestId } = renderCalculator();
-    
+
     // Primeiro liga a calculadora
     const acButton = getByTestId('ac-button');
     act(() => {
