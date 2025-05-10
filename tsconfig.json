@@ -1,13 +1,16 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./src",
     "paths": {
       "@/*": [
-        "./*"
+        "*"
       ],
       "tailwind.config": [
         "./tailwind.config.js"
       ]
-    }
+    },
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
   }
 }

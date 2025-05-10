@@ -2,62 +2,20 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+// Importa os arquivos JSON diretamente
+import enTranslation from '@/assets/locales/en.json';
+import ptTranslation from '@/assets/locales/pt.json';
+import esTranslation from '@/assets/locales/es.json';
+
 const resources = {
-  en: {
-    translation: {
-      welcome: {
-        title: 'Welcome to SOS Antiques!',
-        subtitle: 'Your trusted app for antique collections.',
-        login: 'Login',
-        register: 'Register',
-        changeLanguage: 'En',
-        logoDescription: 'SOS Antiques logo',
-        bannerDescription: 'SOS Antiques banner',
-        errorTitle: 'Error',
-        errorMessage: 'Could not change the language. Please try again.',
-        ok: 'OK',
-      },
-    },
-  },
-  pt: {
-    translation: {
-      welcome: {
-        title: 'Bem-vindo ao SOS Antiques!',
-        subtitle: 'Seu aplicativo confiável para coleções de antiguidades.',
-        login: 'Entrar',
-        register: 'Registrar',
-        changeLanguage: 'Pt',
-        logoDescription: 'Logo do SOS Antiques',
-        bannerDescription: 'Banner do SOS Antiques',
-        errorTitle: 'Erro',
-        errorMessage: 'Não foi possível alterar o idioma. Tente novamente.',
-        ok: 'OK',
-      },
-    },
-  },
-  es: {
-    translation: {
-      welcome: {
-        title: '¡Bienvenido a SOS Antiques!',
-        subtitle:
-          'Tu aplicación de confianza para colecciones de antigüedades.',
-        login: 'Iniciar sesión',
-        register: 'Registrar',
-        changeLanguage: 'Es',
-        logoDescription: 'Logo de SOS Antiques',
-        bannerDescription: 'Banner de SOS Antiques',
-        errorTitle: 'Error',
-        errorMessage:
-          'No se pudo cambiar el idioma. Por favor, inténtalo de nuevo.',
-        ok: 'Aceptar',
-      },
-    },
-  },
-};
+  en: { translation: enTranslation },
+  pt: { translation: ptTranslation },
+  es: { translation: esTranslation },
+} as const;
 
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'pt', // Idioma padrão
+  lng: 'pt', // idioma padrão
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false, // React já faz a sanitização
