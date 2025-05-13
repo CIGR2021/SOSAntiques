@@ -1,14 +1,14 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useAuthentication } from 'src/context/AppProvider';
-import { Spinner } from 'components/ui/spinner';
+import { useAuthentication } from '@/context/AppProvider';
+import { Spinner } from '@gluestack/ui/spinner';
 
 const Stack = createNativeStackNavigator();
 
 // Lazy load pages
-const Home = lazy(() => import('src/pages/Home'));
-const Catalog = lazy(() => import('src/pages/Catalog'));
-const Calculator = lazy(() => import('src/pages/Calculator'));
+const Home = lazy(() => import('@/pages/Home'));
+const Catalog = lazy(() => import('@/pages/Catalog'));
+const Calculator = lazy(() => import('@/pages/Calculator'));
 
 const ApplicationStack = () => {
   const { isAuthenticated, setIsAuthenticated } = useAuthentication();

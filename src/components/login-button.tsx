@@ -1,13 +1,10 @@
-import { Button, ButtonIcon, ButtonText } from 'components/ui/button';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ButtonProps } from '@/types';
+import { Button, ButtonIcon, ButtonText } from '@gluestack/ui/button';
 import { LogInIcon } from 'lucide-react-native';
 
-interface LoginButtonProps {
-  title: string;
-}
-
-const LoginButton: React.FC<LoginButtonProps> = ({ title }) => {
+const LoginButton: React.FC<ButtonProps> = (props) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   return (
@@ -18,7 +15,7 @@ const LoginButton: React.FC<LoginButtonProps> = ({ title }) => {
       onPress={() => navigation.navigate('LoginScreen')}
     >
       <ButtonIcon as={LogInIcon} />
-      <ButtonText size="xl">{title}</ButtonText>
+      <ButtonText size="xl">{props.title}</ButtonText>
     </Button>
   );
 };

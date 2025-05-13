@@ -1,10 +1,10 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@": ["src"],
-      "@gluestack": ["./components"],
+      "@/*": ["src/*"],
+      "@gluestack/*": ["components/*"],
       "tailwind.config": ["./tailwind.config.js"]
     }
   }

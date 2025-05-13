@@ -1,55 +1,39 @@
+import { useState } from 'react';
+import { Text } from 'react-native';
+import { IField } from '@/types';
+import { Box } from '@gluestack/ui/box';
 import {
   FormControlHelper,
   FormControlHelperText,
-} from 'components/ui/form-control';
-import { Input, InputField } from 'components/ui/input';
-import { Icon } from 'components/ui/icon';
-import { useState } from 'react';
-import { Text } from 'react-native';
-import { Heading } from 'components/ui/heading';
-import { Box } from 'components/ui/box';
-import { VStack } from 'components/ui/vstack';
+} from '@gluestack/ui/form-control';
+import { Heading } from '@gluestack/ui/heading';
+import { Icon } from '@gluestack/ui/icon';
+import { Input, InputField } from '@gluestack/ui/input';
+import { VStack } from '@gluestack/ui/vstack';
 
-interface IField {
-  title: String | any;
-  type: String | any;
-  placeholder: String | any;
-  icon: String | any;
-  message: String | any;
-  size: String | any;
-  keyType?: String | any;
-}
-
-const Field = ({
-  title,
-  type,
-  placeholder,
-  icon,
-  message,
-  size,
-  keyType,
-}: IField) => {
+const Field = (props: IField) => {
   const [inputValue, setInputValue] = useState('');
+
   return (
     <VStack>
-      <Heading testID="field-title">{title}</Heading>
+      <Heading testID="field-title">{props.title}</Heading>
       <Box className="w-full min-w-[300px] rounded-lg border border-background-200 p-4">
-        <Input className="my-1" size={size}>
+        <Input className="my-1" size={props.size}>
           <InputField
             testID="field-input"
-            type={type}
-            keyboardType={keyType}
-            placeholder={placeholder}
+            type={props.type}
+            keyboardType={props.keyType}
+            placeholder={props.placeholder}
             value={inputValue}
             onChangeText={(text) => setInputValue(text)}
           />
-          <Icon className="m-1" as={icon} size={size} />
+          <Icon className="m-1" as={props.icon} size={props.size} />
         </Input>
         {inputValue && inputValue.length < 6 && (
           <FormControlHelper>
             <FormControlHelperText>
               <Text testID="field-error" className="text-red">
-                {message}
+                {props.message}
               </Text>
             </FormControlHelperText>
           </FormControlHelper>

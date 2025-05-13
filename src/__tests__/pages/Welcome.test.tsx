@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, fireEvent, act, waitFor } from '@testing-library/react-native';
 import { Alert } from 'react-native';
+import { render, fireEvent, act, waitFor } from '@testing-library/react-native';
+import { initReactI18next, I18nextProvider } from 'react-i18next';
 import { NavigationContainer } from '@react-navigation/native';
 import i18next, { i18n as I18nType } from 'i18next';
-import { initReactI18next, I18nextProvider } from 'react-i18next';
 import { resources } from '@/__mocks__/translations';
 import Welcome from '@/pages/Welcome';
 

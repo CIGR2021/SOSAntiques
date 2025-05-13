@@ -1,22 +1,22 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import App from '@SOSAntiques/App';
+import App from 'App';
 
 // Mock do arquivo CSS
 jest.mock('./global.css', () => ({}));
 
 // Mock dos componentes necessários
-jest.mock('@/components/ui/gluestack-ui-provider', () => ({
+jest.mock('@gluestack/ui/gluestack-ui-provider', () => ({
   GluestackUIProvider: ({ children }: { children: React.ReactNode }) =>
     children,
 }));
 
-jest.mock('@/src/routes', () => {
+jest.mock('@/routes', () => {
   const { Text } = require('react-native'); // Importar dentro do mock
   return () => <Text testID="mocked-routes">Mocked Routes</Text>;
 });
 
-jest.mock('@/src/context/AppProvider', () => ({
+jest.mock('@/context/AppProvider', () => ({
   AppProvider: ({ children }: { children: React.ReactNode }) => {
     const MockedContext = require('react').createContext({ isLoggedIn: false });
     return (

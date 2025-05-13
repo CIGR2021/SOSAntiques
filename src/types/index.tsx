@@ -1,4 +1,29 @@
+import { IIconComponentType } from '@gluestack-ui/icon/lib/createIcon';
+import { LucideProps } from 'lucide-react-native';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
+
+export interface IField {
+  title: String | any;
+  type: String | any;
+  placeholder: String | any;
+  icon: String | any;
+  message: String | any;
+  size: String | any;
+  keyType?: String | any;
+}
+
+export interface ButtonProps {
+  title: string;
+}
+
+export interface ICalcButton {
+  onPress?: () => void;
+  title?: string | undefined;
+  testID?: string | undefined;
+  disabled?: boolean;
+  icon?: IIconComponentType<LucideProps> | undefined;
+  type?: 'AC' | 'operation' | 'off' | 'equals' | 'default'; // Adicione o tipo
+}
 
 export type AppProviderProps = {
   children: ReactNode;

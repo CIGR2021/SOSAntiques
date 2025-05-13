@@ -1,11 +1,11 @@
-import { Center } from 'components/ui/center';
-import MainMenu from './main-menu';
-import { Card } from 'components/ui/card';
-import { HStack } from 'components/ui/hstack';
-import { Button, ButtonIcon } from 'components/ui/button';
-import { CalculatorIcon } from 'lucide-react-native';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import MainMenu from './main-menu';
+import { Card } from '@gluestack/ui/card';
+import { Center } from '@gluestack/ui/center';
+import { HStack } from '@gluestack/ui/hstack';
+import { Button, ButtonIcon } from '@gluestack/ui/button';
+import { CalculatorIcon } from 'lucide-react-native';
 
 const Header = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
