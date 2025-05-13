@@ -3,9 +3,9 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 // Importa os arquivos JSON diretamente
-import enTranslation from '../assets/locales/en.json';
-import ptTranslation from '../assets/locales/pt.json';
-import esTranslation from '../assets/locales/es.json';
+import enTranslation from '@/assets/locales/en.json';
+import ptTranslation from '@/assets/locales/pt.json';
+import esTranslation from '@/assets/locales/es.json';
 
 const resources = {
   en: { translation: enTranslation },

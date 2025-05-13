@@ -1,39 +1,22 @@
+import { useCalculator } from '@/context/AppProvider';
+import { ICalcButton } from '@/types';
+import { Button, ButtonIcon, ButtonText } from '@gluestack/ui/button';
 import React from 'react';
-import { useCalculator } from 'src/context/AppProvider';
-import { LucideProps } from 'lucide-react-native';
-import { Button, ButtonIcon, ButtonText } from 'components/ui/button';
-import { IIconComponentType } from '@gluestack-ui/icon/lib/createIcon';
 
-interface ICalcButton {
-  onPress?: () => void;
-  title?: string | undefined;
-  testID?: string | undefined;
-  disabled?: boolean;
-  icon?: IIconComponentType<LucideProps> | undefined;
-  type?: 'AC' | 'operation' | 'off' | 'equals' | 'default'; // Adicione o tipo
-}
-
-const CalcButton = ({
-  onPress,
-  title,
-  testID = undefined,
-  disabled = false,
-  icon = undefined,
-  type = 'default' as const, // Adicione o valor padrão
-}: ICalcButton) => {
+const CalcButton = (props: ICalcButton) => {
   const { constants, hideOnUnmount: isDisplayOn } = useCalculator();
 
   // Defina as cores com base no tipo
   const getButtonColor = () => {
-    switch (type) {
+    switch (props.type) {
       case 'AC':
-        return disabled ? '' : 'bg-green-600'; // Verde
+        return props.disabled ? '' : 'bg-green-600'; // Verde
       case 'operation':
-        return disabled ? '' : 'bg-blue-600'; // Azul
+        return props.disabled ? '' : 'bg-blue-600'; // Azul
       case 'off':
         return isDisplayOn ? 'bg-red-800' : ''; // Vermelho ou cinza
       case 'equals':
-        return disabled ? '' : 'bg-blue-200'; // Azul mais escuro
+        return props.disabled ? '' : 'bg-blue-200'; // Azul mais escuro
       default:
         return ''; // Cor padrão
     }
@@ -42,17 +25,17 @@ const CalcButton = ({
   return (
     <Button
       className={`rounded-full w-auto min-h-[50px] min-w-[60px] p-2 ${getButtonColor()}`} // Use a cor retornada
-      onPress={onPress}
+      onPress={props.onPress}
       size={constants.sizeButton}
-      variant={disabled ? 'outline' : 'solid'}
-      testID={testID}
-      disabled={disabled}
+      variant={props.disabled ? 'outline' : 'solid'}
+      testID={props.testID}
+      disabled={props.disabled}
     >
-      {icon ? (
-        <ButtonIcon as={icon} />
+      {props.icon ? (
+        <ButtonIcon as={props.icon} />
       ) : (
         <ButtonText className="shadow-lg" size={constants.sizeText}>
-          {title}
+          {props.title}
         </ButtonText>
       )}
     </Button>

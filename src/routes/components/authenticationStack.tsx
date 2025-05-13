@@ -1,14 +1,14 @@
 import React, { lazy, Suspense } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Spinner } from 'components/ui/spinner';
+import { Spinner } from '@gluestack/ui/spinner';
 
 const Stack = createNativeStackNavigator();
 
 // Lazy load pages
-const Login = lazy(() => import('src/pages/Login'));
-const Register = lazy(() => import('src/pages/Register'));
-const ResetPassword = lazy(() => import('src/pages/ResetPassword'));
-const Welcome = lazy(() => import('src/pages/Welcome'));
+const Login = lazy(() => import('@/pages/Login'));
+const Register = lazy(() => import('@/pages/Register'));
+const ResetPassword = lazy(() => import('@/pages/ResetPassword'));
+const Welcome = lazy(() => import('@/pages/Welcome'));
 
 const AuthenticationStack = () => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, ButtonIcon, ButtonText } from 'components/ui/button';
-import { Icon } from 'components/ui/icon';
-import { Box } from 'components/ui/box';
-import { Divider } from 'components/ui/divider';
+import { Pressable } from 'react-native';
+import { useAuthentication } from '@/context/AppProvider';
+import images from '@/config/const';
+import { Button, ButtonIcon, ButtonText } from '@gluestack/ui/button';
 import {
   Drawer,
   DrawerBackdrop,
@@ -10,24 +10,25 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
-} from 'components/ui/drawer';
-import { Avatar, AvatarFallbackText, AvatarImage } from 'components/ui/avatar';
-import { VStack } from 'components/ui/vstack';
-import { Text } from 'components/ui/text';
-import { Pressable } from 'react-native';
+} from '@gluestack/ui/drawer';
+import { Avatar, AvatarFallbackText, AvatarImage } from '@gluestack/ui/avatar';
+import { VStack } from '@gluestack/ui/vstack';
+import { Text } from '@gluestack/ui/text';
+import { Divider } from '@gluestack/ui/divider';
+import { Icon } from '@gluestack/ui/icon';
 import {
   LogOut,
   ShoppingCart,
   Wallet,
   MenuIcon,
   User,
+  Box,
 } from 'lucide-react-native';
-import { useAuthentication } from 'src/context/AppProvider';
-import images from 'src/config/const';
 
 const MainMenu = () => {
   // const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  const CONTEXT_STATE = useAuthentication();
+  const { setIsAuthenticated, setShowMainMenu, showMainMenu } =
+    useAuthentication();
 
   return (
     <Box>
@@ -36,15 +37,15 @@ const MainMenu = () => {
         className="w-auto"
         size="xl"
         onPress={() => {
-          CONTEXT_STATE.setShowMainMenu(true);
+          setShowMainMenu(true);
         }}
       >
         <ButtonIcon as={MenuIcon} />
       </Button>
       <Drawer
-        isOpen={CONTEXT_STATE.showMainMenu}
+        isOpen={showMainMenu}
         onClose={() => {
-          CONTEXT_STATE.setShowMainMenu(false);
+          setShowMainMenu(false);
         }}
       >
         <DrawerBackdrop testID="drawer-backdrop" />
@@ -72,7 +73,7 @@ const MainMenu = () => {
             <Pressable
               // onPress={() => (
               //   navigation.navigate('NewsScreen', {name: 'Novidades'}),
-              //   CONTEXT_STATE.setShowMainMenu(false)
+              //   setShowMainMenu(false)
               // )}
               className="gap-3 flex-row items-center hover:bg-background-50 p-2 rounded-md"
             >
@@ -105,10 +106,10 @@ const MainMenu = () => {
               className="w-full gap-2"
               variant="outline"
               action="secondary"
-              onPress={() => (
-                CONTEXT_STATE.setIsAuthenticated(false),
-                CONTEXT_STATE.setShowMainMenu(false)
-              )}
+              onPress={() => {
+                setIsAuthenticated(false);
+                setShowMainMenu(false);
+              }}
             >
               <ButtonText>Sair da Consta</ButtonText>
               <ButtonIcon as={LogOut} />

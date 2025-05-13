@@ -8,12 +8,12 @@
 import React from 'react';
 import 'global.css';
 import { NavigationContainer } from '@react-navigation/native';
-import Routes from 'src/routes';
 import { I18nextProvider } from 'react-i18next';
-import { Box } from 'components/ui/box';
-import { AppProvider } from 'src/context/AppProvider';
-import { GluestackUIProvider } from 'components/ui/gluestack-ui-provider';
-import i18n from 'src/config/i18n';
+import { Box } from '@gluestack/ui/box';
+import i18n from '@/config/i18n';
+import { GluestackUIProvider } from '@gluestack/ui/gluestack-ui-provider';
+import { AppProvider } from '@/context/AppProvider';
+import Routes from '@/routes';
 
 const App = () => {
   return (

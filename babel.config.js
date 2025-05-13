@@ -10,7 +10,7 @@ module.exports = {
 
         alias: {
           '@gluestack': './components',
-          '@SOSAntiques': 'src/*',
+          '@': './src',
           'tailwind.config': './tailwind.config.js',
         },
       },

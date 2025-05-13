@@ -1,13 +1,10 @@
-import { Button, ButtonIcon, ButtonText } from 'components/ui/button';
+import { ButtonProps } from '@/types';
+import { Button, ButtonIcon, ButtonText } from '@gluestack/ui/button';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { UserPlus2Icon } from 'lucide-react-native';
 
-interface RegisterButtonProps {
-  title: string;
-}
-
-const RegisterButton: React.FC<RegisterButtonProps> = ({ title }) => {
+const RegisterButton: React.FC<ButtonProps> = (props) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   return (
@@ -18,7 +15,7 @@ const RegisterButton: React.FC<RegisterButtonProps> = ({ title }) => {
       onPress={() => navigation.navigate('RegisterScreen')}
     >
       <ButtonIcon as={UserPlus2Icon} />
-      <ButtonText size="xl">{title}</ButtonText>
+      <ButtonText size="xl">{props.title}</ButtonText>
     </Button>
   );
 };

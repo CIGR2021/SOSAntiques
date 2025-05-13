@@ -1,6 +1,3 @@
-import { Card } from 'components/ui/card';
-import { Center } from 'components/ui/center';
-import { VStack } from 'components/ui/vstack';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -9,16 +6,19 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { Heading } from 'components/ui/heading';
-import { Divider } from 'components/ui/divider';
-import Field from 'src/components/field';
-import { MailIcon } from 'components/ui/icon';
-import { Button, ButtonGroup, ButtonText } from 'components/ui/button';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import FastImage from 'react-native-fast-image';
-import { getDynamicStyles } from 'src/styles';
-import images from 'src/config/const';
+import { getDynamicStyles } from '@/styles';
+import images from '@/config/const';
+import Field from '@/components/field';
+import { Center } from '@gluestack/ui/center';
+import { Card } from '@gluestack/ui/card';
+import { VStack } from '@gluestack/ui/vstack';
+import { Heading } from '@gluestack/ui/heading';
+import { Divider } from '@gluestack/ui/divider';
+import { Button, ButtonGroup, ButtonText } from '@gluestack/ui/button';
+import { MailIcon } from 'lucide-react-native';
 
 const ResetPassword = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
