@@ -1,19 +1,19 @@
-import { Center } from '@gluestack/ui/center';
-import { Heading } from '@gluestack/ui/heading';
+import { Center } from 'components/ui/center';
+import { Heading } from 'components/ui/heading';
 import FastImage from 'react-native-fast-image';
-import { VStack } from '@gluestack/ui/vstack';
+import { VStack } from 'components/ui/vstack';
 import React, { useCallback, useMemo } from 'react';
 import { Alert, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { getDynamicStyles } from '@/styles';
-import images from '@/config/const';
-import LoginButton from '@/components/login-button';
-import RegisterButton from '@/components/register-button';
+import { getDynamicStyles } from 'src/styles';
+import images from 'src/config/const';
+import LoginButton from 'src/components/login-button';
+import RegisterButton from 'src/components/register-button';
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonIcon, ButtonText } from '@gluestack/ui/button';
-import i18n from '@/config/i18n';
+import { Button, ButtonIcon, ButtonText } from 'components/ui/button';
+import i18n from 'src/config/i18n';
 import { LanguagesIcon } from 'lucide-react-native';
-import { Box } from '@gluestack/ui/box';
+import { Box } from 'components/ui/box';
 
 const Welcome = () => {
   const { t } = useTranslation();

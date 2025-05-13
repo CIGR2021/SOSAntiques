@@ -1,14 +1,14 @@
 import {
   FormControlHelper,
   FormControlHelperText,
-} from '@gluestack/ui/form-control';
-import { Input, InputField } from '@gluestack/ui/input';
-import { Icon } from '@gluestack/ui/icon';
+} from 'components/ui/form-control';
+import { Input, InputField } from 'components/ui/input';
+import { Icon } from 'components/ui/icon';
 import { useState } from 'react';
 import { Text } from 'react-native';
-import { Heading } from '@gluestack/ui/heading';
-import { Box } from '@gluestack/ui/box';
-import { VStack } from '@gluestack/ui/vstack';
+import { Heading } from 'components/ui/heading';
+import { Box } from 'components/ui/box';
+import { VStack } from 'components/ui/vstack';
 
 interface IField {
   title: String | any;

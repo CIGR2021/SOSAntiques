@@ -1,8 +1,8 @@
 import React from 'react';
-import { Button, ButtonIcon, ButtonText } from '@gluestack/ui/button';
-import { Icon } from '@gluestack/ui/icon';
-import { Box } from '@gluestack/ui/box';
-import { Divider } from '@gluestack/ui/divider';
+import { Button, ButtonIcon, ButtonText } from 'components/ui/button';
+import { Icon } from 'components/ui/icon';
+import { Box } from 'components/ui/box';
+import { Divider } from 'components/ui/divider';
 import {
   Drawer,
   DrawerBackdrop,
@@ -10,10 +10,10 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
-} from '@gluestack/ui/drawer';
-import { Avatar, AvatarFallbackText, AvatarImage } from '@gluestack/ui/avatar';
-import { VStack } from '@gluestack/ui/vstack';
-import { Text } from '@gluestack/ui/text';
+} from 'components/ui/drawer';
+import { Avatar, AvatarFallbackText, AvatarImage } from 'components/ui/avatar';
+import { VStack } from 'components/ui/vstack';
+import { Text } from 'components/ui/text';
 import { Pressable } from 'react-native';
 import {
   LogOut,
@@ -22,8 +22,8 @@ import {
   MenuIcon,
   User,
 } from 'lucide-react-native';
-import { useAuthentication } from '@/context/AppProvider';
-import images from '@/config/const';
+import { useAuthentication } from 'src/context/AppProvider';
+import images from 'src/config/const';
 
 const MainMenu = () => {
   // const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();

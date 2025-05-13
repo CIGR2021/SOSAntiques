@@ -6,14 +6,14 @@
  */
 
 import React from 'react';
-import './global.css';
-import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
+import 'global.css';
 import { NavigationContainer } from '@react-navigation/native';
-import Routes from './src/routes';
-import { AppProvider } from './src/context/AppProvider';
-import { Box } from './components/ui/box';
+import Routes from 'src/routes';
 import { I18nextProvider } from 'react-i18next';
-import i18n from './src/config/i18n';
+import { Box } from 'components/ui/box';
+import { AppProvider } from 'src/context/AppProvider';
+import { GluestackUIProvider } from 'components/ui/gluestack-ui-provider';
+import i18n from 'src/config/i18n';
 
 const App = () => {
   return (

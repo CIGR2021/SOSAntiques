@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useAuthentication } from '@/context/AppProvider';
+import { useAuthentication } from 'src/context/AppProvider';
 import AuthenticationStack from './components/authenticationStack';
 import ApplicationStack from './components/applicationStack';
 

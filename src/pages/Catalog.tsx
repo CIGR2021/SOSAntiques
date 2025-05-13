@@ -1,8 +1,8 @@
-import { Center } from '@gluestack/ui/center';
-import { Heading } from '@gluestack/ui/heading';
-import { Card } from '@gluestack/ui/card';
-import MenuAside from '@/components/menu-aside';
-import { HStack } from '@gluestack/ui/hstack';
+import { Center } from 'components/ui/center';
+import { Heading } from 'components/ui/heading';
+import { Card } from 'components/ui/card';
+import MenuAside from 'src/components/menu-aside';
+import { HStack } from 'components/ui/hstack';
 
 const Catalog = () => {
   return (

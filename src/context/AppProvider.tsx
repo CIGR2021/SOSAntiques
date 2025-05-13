@@ -1,8 +1,12 @@
 // Authenticatio Context
 import { createContext, useCallback, useContext, useState } from 'react';
 import * as math from 'mathjs';
-import Message from '@/utils/enum/Message.enum';
-import { AppProviderProps, AuthenticationType, CalculatorType } from '@/types';
+import {
+  AppProviderProps,
+  AuthenticationType,
+  CalculatorType,
+} from 'src/types';
+import Message from 'src/utils/enum/Message.enum';
 
 // Contexts
 export const AuthenticationContext = createContext({} as AuthenticationType);

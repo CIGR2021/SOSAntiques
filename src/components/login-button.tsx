@@ -1,4 +1,4 @@
-import { Button, ButtonIcon, ButtonText } from '@gluestack/ui/button';
+import { Button, ButtonIcon, ButtonText } from 'components/ui/button';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { LogInIcon } from 'lucide-react-native';

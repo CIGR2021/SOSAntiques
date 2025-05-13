@@ -1,26 +1,11 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
-      "tailwind.config": ["./tailwind.config.js"],
-      "@/*": ["*"],
-      "@gluestack/*": ["../components/*"],
-      "@SOSAntiques/*": ["../*"],
-      "@mocks/*": ["./__mocks__/*"],
-      "@tests/*": ["./__tests__/*"],
-      "@assets/*": ["./assets/*"],
-      "@components/*": ["./components/*"],
-      "@config/*": ["./config/*"],
-      "@context/*": ["./context/*"],
-      "@models/*": ["./models/*"],
-      "@pages/*": ["./pages/*"],
-      "@routes/*": ["./routes/*"],
-      "@styles/*": ["./styles/*"],
-      "@types/*": ["./types/*"],
-      "@utils/*": ["./utils/*"]
-    },
-    "resolveJsonModule": true,
-    "esModuleInterop": true
+      "@": ["src"],
+      "@gluestack": ["./components"],
+      "tailwind.config": ["./tailwind.config.js"]
+    }
   }
 }

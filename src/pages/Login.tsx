@@ -1,12 +1,12 @@
 import React from 'react';
-import { Center } from '@gluestack/ui/center';
-import Field from '@/components/field';
-import { LockIcon, MailIcon } from '@gluestack/ui/icon';
-import { VStack } from '@gluestack/ui/vstack';
-import { Button, ButtonGroup, ButtonText } from '@gluestack/ui/button';
-import { Card } from '@gluestack/ui/card';
-import { Heading } from '@gluestack/ui/heading';
-import { Divider } from '@gluestack/ui/divider';
+import { Center } from 'components/ui/center';
+import Field from 'src/components/field';
+import { LockIcon, MailIcon } from 'components/ui/icon';
+import { VStack } from 'components/ui/vstack';
+import { Button, ButtonGroup, ButtonText } from 'components/ui/button';
+import { Card } from 'components/ui/card';
+import { Heading } from 'components/ui/heading';
+import { Divider } from 'components/ui/divider';
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import {
@@ -17,11 +17,11 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
-import { FormControl } from '@gluestack/ui/form-control';
-import { useAuthentication } from '@/context/AppProvider';
+import { FormControl } from 'components/ui/form-control';
+import { useAuthentication } from 'src/context/AppProvider';
 import FastImage from 'react-native-fast-image';
-import { getDynamicStyles } from '@/styles';
-import images from '@/config/const';
+import { getDynamicStyles } from 'src/styles';
+import images from 'src/config/const';
 
 const Login = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
