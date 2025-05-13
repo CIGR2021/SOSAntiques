@@ -1,7 +1,7 @@
 import React from 'react';
 import Catalog from './Catalog';
-import { VStack } from '@gluestack/ui/vstack';
-import Header from '@/components/header';
+import { VStack } from 'components/ui/vstack';
+import Header from 'src/components/header';
 
 const Home = () => {
   // const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
